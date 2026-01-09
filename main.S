@@ -3,17 +3,18 @@
 ; This file is self-contained (does not require m328pdef.inc).
 
 ; ATmega328P I/O register addresses (I/O space, for SBI/CBI)
-.equ DDRB  = 0x04
-.equ PORTB = 0x05
+.equ DDRB,  0x04
+.equ PORTB, 0x05
 
 ; Bit positions
-.equ DDB5   = 5
-.equ PORTB5 = 5
+.equ DDB5,   5
+.equ PORTB5, 5
 
-.org 0x0000
-rjmp reset
+.text
+.global main
+.type main, @function
 
-reset:
+main:
     sbi DDRB, DDB5
 
 loop:
