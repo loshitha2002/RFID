@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "AVR: build elf",
+      "type": "shell",
+      "command": "C:\\msys64\\ucrt64\\bin\\avr-gcc.exe",
+      "args": [
+        "-mmcu=atmega328p",
+        "-Os",
+        "-o",
+        "${workspaceFolder}\\main.elf",
+        "${workspaceFolder}\\main.S"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "AVR: build hex",
+      "type": "shell",
+      "command": "C:\\msys64\\ucrt64\\bin\\avr-objcopy.exe",
+      "args": [
+        "-O",
+        "ihex",
+        "-R",
+        ".eeprom",
+        "${workspaceFolder}\\main.elf",
+        "${workspaceFolder}\\main.hex"
+      ],
+      "problemMatcher": [],
+      "dependsOn": ["AVR: build elf"]
+    },
+    {
+      "label": "AVR: size",
+      "type": "shell",
+      "command": "C:\\msys64\\ucrt64\\bin\\avr-size.exe",
+      "args": [
+        "-C",
+        "--mcu=atmega328p",
+        "${workspaceFolder}\\main.elf"
+      ],
+      "problemMatcher": [],
+      "dependsOn": ["AVR: build elf"]
+    },
+    {
+      "label": "AVR: build (elf+hex+size)",
+      "dependsOn": ["AVR: build elf", "AVR: build hex", "AVR: size"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}
